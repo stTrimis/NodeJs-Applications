@@ -1,0 +1,68 @@
+<script src="/socket.io/socket.io.js"></script>
+
+
+{{#if removedUser}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  User has been removed.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+<div class="row">
+  <div class="col-6">
+    <h1 class="text-warning">PCs</h1>
+  </div>
+  <div class="col-6 d-lg-flex justify-content-end">
+    <a href="/adduser" type="button" class="btn btn-dark align-self-center">+ add user</a>
+    <a href="/label" type="button" class="btn btn-dark align-self-center">Label {{this.credits}}</a>
+
+  </div>
+  <div class="col-6 d-flex justify-content-end">
+  </div>
+
+</div>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="text-warning">#</th>
+      <th scope="col" class="text-warning">PC</th>
+      {{!-- <th scope="col" class="text-light">Last Name</th> --}}
+      {{!-- <th scope="col" class="text-light">Email</th> --}}
+      <th scope="col" class="text-warning">Credits</th>
+      <th scope="col" class="text-warning">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each rows}}
+    <tr>
+      <th scope="row" class="text-warning">{{this.id}}</th>
+      <td class="text-warning">{{this.first_name}}</td>
+      {{!-- <td class="text-light">{{this.last_name}}</td> --}}
+      {{!-- <td class="text-light">{{this.email}}</td> --}}
+      <td class="text-warning">{{this.credits}}</td>
+      <td>
+        <div class="input-group input-group-sm mb-3 credits_container">
+          <form action="/credits/{{this.id}}" method="post" id="form_container">
+            <input type="number" class="form-control" placeholder="Credits" name="input_credits" id="input_credits"
+              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <div class="col-7 d-grid">
+              <button class="bi bi-plus btn btn-dark" id="post_credits" type="submit">Add</button>
+            </div> 
+          </form>
+        </div>
+        {{!-- <a href="/credits" type="button" class="btn btn-light btn-small"><i class="bi bi-plus"></i> Add</a> --}}
+        <a href="/viewuser/{{this.id}}" type="button" class="btn btn-dark btn-small"><i class="bi bi-eye"></i> View</a>
+        <a href="/edituser/{{this.id}}" type="button" class="btn btn-dark btn-small"><i class="bi bi-pencil"></i>
+          Edit</a>
+        <a href="/{{this.id}}" type="button" class="btn btn-dark btn-small"><i class="bi bi-person-x"></i>
+          Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+
+
+  </tbody>
+</table>
+
